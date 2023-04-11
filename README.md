@@ -1,1 +1,16 @@
-# Scrapers
+# Web Scrapers Project
+This project contains web scraping scripts that extract data from various websites. The scripts are written in Python and use popular libraries such as BeautifulSoup, Selenium and Scrapy.
+
+## Requirements
+- Python 3.x
+- BeautifulSoup
+- Scrapy
+- Selenium 
+
+### Usage
+Each scraper is contained within its own folder and can be run by executing the corresponding Python script. The extracted data is usually saved to a database or JSON file.
+
+Before running any scraper, make sure to read the instructions in the scraper's folder and install any additional dependencies that may be required.
+
+### Disclaimer
+Web scraping can potentially violate the terms of service of the websites being scraped. Use these scripts at your own risk and make sure to read and comply with the website's terms of service before scraping.
