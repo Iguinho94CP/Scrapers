@@ -1,5 +1,5 @@
 # Web Scrapers Project
-This is a work-in-progress project that will contain web scraping scripts to extract data from various websites. The scripts will be written in Python and use popular libraries such as BeautifulSoup and Scrapy.
+This is a work-in-progress project that will contain web scraping scripts to extract data from various websites. The scripts will be written in Python and use popular libraries such as BeautifulSoup, Scrapy and Selenium.
 
 Check back soon for updates!
 
