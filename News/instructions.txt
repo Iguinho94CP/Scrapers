@@ -1,4 +1,6 @@
-This Python script is designed to scrape the Screen Rant website for comic book news and store the extracted data in a SQLite database. Follow the instructions below to use the script:
+This Python script is designed to scrape the Screen Rant website for comic book news and store the extracted data in a SQLite database. 
+
+Follow the instructions below to use the script:
 
 Install the required packages by running pip install selenium beautifulsoup4 sqlite3.
 
