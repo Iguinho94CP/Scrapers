@@ -10,4 +10,5 @@ Run the script by typing python script_name.py in your terminal or command promp
 
 Wait for the script to finish running. The extracted data will be stored in the 'mydatabase.db' file in the same directory as the script.
 
-Note: This script may violate the terms of service of the Screen Rant website. Use it at your own risk and make sure to read and comply with the website's terms of service before scraping.
+Note: This script may violate the terms of service of the Screen Rant website. 
+Use it at your own risk and make sure to read and comply with the website's terms of service before scraping.
