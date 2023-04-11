@@ -5,6 +5,7 @@ Check back soon for updates!
 
 ## Requirements
 - Python 3.x
+- Requests
 - BeautifulSoup
 - Scrapy
 - Selenium 
