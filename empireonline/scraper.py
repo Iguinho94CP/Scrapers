@@ -1,5 +1,7 @@
 '''
 Date: 24/04/2023
+UPATE-DATE: 07/05/2023
+version: 2.0
 Type: News scraper
 Developed by: Igor Pantaleão
 '''
@@ -17,38 +19,47 @@ def requesting(url):
 	return soup 
 
 def scraping(soup):
-	base_img_url = "http:"
-	base_link = "https://www.empireonline.com"
+    base_img_url = "https:"
+    base_link = "https://www.empireonline.com"
+    # Find the elements you want to extract text from
+    cards = soup.find_all('div', {'class': 'jsx-2979979908 content'})
 
+    news_list = []
+    for card in cards:
+        card_small = card.find_all('div', {'class': 'jsx-2519753491 card card-small'})
+        for element in card_small:
+            # Extract the news title, handling the AttributeError if it occurs
+            try:
+                news_title = element.find('h3', {'class': 'jsx-2519753491'}).text.replace('\n', ' ').strip()
+                news_link = element.find('a')['href']
+                full_link = base_link + str(news_link)
+                news_category = element.find('p', {'class': 'jsx-2519753491 type-date'})
+                news_category_link = base_link + str(news_category.find('a')['href'])
+                news_description = element.find('div', {'class': 'jsx-2519753491 top'})
+                description = news_description.find('a', {'class': 'description'}).text.replace('\n', ' ')
+                publish_time = element.find('span', {'class': 'jsx-2519753491 date'}).text
 
-	cards = soup.find_all('div', {'class':'jsx-2519753491 card card-small'})
+                img_tags = element.find_all('img')
+                img_url = ''
+                for img in img_tags:
+                    img_url = img['data-src']
+                    full_img_url = 'https:' + img_url.replace('w=150', 'w=1200').replace('w=750', 'w=1200')
 
-	news = []
-	for card in cards:
-		news_title = card.find('h3', {'class':'jsx-2519753491'}).text.replace('\n', ' ').strip()
-		#print(news_title)
-		news_link = card.find('a')['href']
-		full_link = base_link + str(news_link)
-		news_category = card.find('p', {'class':'jsx-2519753491 type-date'})
-		news_category_link = base_link + str(news_category.find('a')['href'])
-		news_description = card.find('div', {'class':'jsx-2519753491 top'})
-		description = news_description.find('a', {'class':'description'}).text.replace('\n', ' ')
-		publish_time = card.find('span', {'class':'jsx-2519753491 date'}).text
+                news_dict = {
+                    'Title': news_title,
+                    'News_URL': full_link,
+                    'News_category': news_category_link,
+                    'Description': description,
+                    'Image_URL': full_img_url,
+                    'Publish_time': publish_time
+                }
 
-		img_tag = card.select_one('picture > img')
-		if img_tag:
-			img_url = base_img_url + str(img_tag['src'])
+                news_list.append(news_dict)
 
-		news_dict = {
-			'Title': news_title,
-			'News_URL': full_link,
-			'News_category': news_category_link,
-			'Description': description,
-			'Image_URL': img_url,
-			'Publish_time': publish_time
-		}
-		news.append(news_dict)
-	return news
+            except AttributeError as e:
+                print(f"An error occurred {e}")
+
+    return news_list
 
 
 def connect_database(db_uri):
@@ -113,10 +124,10 @@ def insert_to_database(news_list, db_uri):
 
 
 if __name__ == "__main__":
-	PATH = "file:/home/igor/myprojects/scrapers/empireonline/news.db"
+	PATH = "/home/igor/myprojects/scrapers/movie_news_sites/empireonline/news.db"
 	conn = connect_database(PATH)
 
-	for page in range(1, 21):
+	for page in range(1, 6):
 		url = f'https://www.empireonline.com/movies/{page}'
 		soup = requesting(url)
 		time.sleep(1.5)
@@ -127,4 +138,5 @@ if __name__ == "__main__":
 		insert_to_database(news, PATH)
 
 	conn.close()
+
 
